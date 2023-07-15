@@ -1,7 +1,7 @@
-import { Component, Show, createSignal } from "solid-js";
-import { registerUser } from "@/data/space-trader-api";
-import { useGlobalState } from "@/state/GlobalState";
-import { storeUser } from "@/utility/local-storage";
+import { Component, Show, createSignal } from 'solid-js';
+import { registerUser } from '@/data/space-trader-api';
+import { useGlobalState } from '@/state/GlobalState';
+import { storeUser } from '@/utility/local-storage';
 
 const Startup: Component = () => {
     const { user, setUser } = useGlobalState();
@@ -9,7 +9,7 @@ const Startup: Component = () => {
     const [loading, setLoading] = createSignal(false);
     const [error, setError] = createSignal('');
 
-    const handleSubmit = (event: any) => { // fucking what the hell is the TYPE!!!!?
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         if (loading()) return;
 
@@ -17,18 +17,17 @@ const Startup: Component = () => {
 
         registerUser(userName())
             .then((response) => {
-                console.log('response', response.data);
                 const newUser = {
-                    name: userName(),
-                    authToken: response.data.token,
-                }
+                    name: response.data.data.agent.symbol,
+                    authToken: response.data.data.token,
+                };
                 setUser(newUser);
                 storeUser(newUser.name, newUser.authToken);
                 setError('');
             })
             .catch((error) => {
                 console.log('error', error);
-                setError('I dunno, check the console or try again');
+                setError('I dunno, check the console or try again.');
             })
             .finally(() => {
                 setLoading(false);
@@ -43,11 +42,17 @@ const Startup: Component = () => {
             {loading() && <div>loading...</div>}
             <label for="username">
                 Username
-                <input class="input input-bordered input-primary" value={userName()} onInput={(event) => setUserName(event.target.value)} />
+                <input
+                    class="input input-bordered input-primary"
+                    value={userName()}
+                    onInput={(event) => setUserName(event.target.value)}
+                />
             </label>
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn">
+                Submit
+            </button>
         </form>
     );
-  };
-  
-  export default Startup;
+};
+
+export default Startup;

@@ -10,7 +10,7 @@ const registerUser = (username: string) => {
     const url = baseUrl + 'register';
     const data = {
         symbol: username,
-        email: 'zskusz@gmail.com', // only used on name reserve
+        // email: 'zskusz@gmail.com', // only used on name reserve
         faction: 'COSMIC', // default
     };
     return axios.post(url, data);
