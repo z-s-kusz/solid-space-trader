@@ -5,7 +5,11 @@ import { useGlobalState } from '@/state/GlobalState';
 
 const StarMap: Component = () => {
     const [loading, setLoading] = createSignal(false);
-    const { user } = useGlobalState();
+    const { user, activeShip } = useGlobalState();
+
+    const shipDisplay = () => {
+        return activeShip().symbol ? activeShip().symbol : 'None Selected';
+    };
 
     const getMainShipLocal = () => {
         getSpaceTraders('my/agent', user().authToken)
@@ -35,6 +39,7 @@ const StarMap: Component = () => {
     return (
         <Window>
             <h1>Star Map:</h1>
+            <h1>Active Ship: {shipDisplay()}</h1>
             {loading() && <div>loading...</div>}
             <pre>{mapString}</pre>
         </Window>

@@ -4,7 +4,7 @@ import Window from '@/ui-elements/Window';
 import { Component, For, createSignal } from 'solid-js';
 
 const ShipList: Component = () => {
-    const { user } = useGlobalState();
+    const { user, setActiveShip } = useGlobalState();
     const [ships, setShips] = createSignal([]);
     const [loading, setLoading] = createSignal(false);
 
@@ -23,6 +23,10 @@ const ShipList: Component = () => {
             });
     };
 
+    const handleShipClick = (ship: any) => {
+        setActiveShip(ship);
+    };
+
     getShipsList();
 
     return (
@@ -32,10 +36,9 @@ const ShipList: Component = () => {
             <ul>
                 <For each={ships()}>
                     {(ship: any) => (
-                        <li class="flex">
+                        <li class="flex" onClick={() => handleShipClick(ship)}>
                             <p>
-                                {ship.registration.name},{' '}
-                                {ship.registration.role}
+                                {ship.symbol}, {ship.registration.role}
                             </p>
                             <p class="px-8">|</p>
                             <p>
