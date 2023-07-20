@@ -33,22 +33,36 @@ const ShipList: Component = () => {
         <Window>
             {loading() && <p>loading...</p>}
             <h1>Ships:</h1>
-            <ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>System</th>
+                        <th>Waypoint</th>
+                    </tr>
+                </thead>
+                <tbody>
                 <For each={ships()}>
                     {(ship: any) => (
-                        <li class="flex" onClick={() => handleShipClick(ship)}>
-                            <p>
-                                {ship.symbol}, {ship.registration.role}
-                            </p>
-                            <p class="px-8">|</p>
-                            <p>
-                                {ship.nav.systemSymbol},{' '}
+                        <tr onClick={() => handleShipClick(ship)}>
+                            <td>
+                                {ship.symbol}
+                            </td>
+                            <td>
+                                {ship.registration.role}
+                            </td>
+                            <td>
+                                {ship.nav.systemSymbol}
+                            </td>
+                            <td>
                                 {ship.nav.waypointSymbol}
-                            </p>
-                        </li>
+                            </td>
+                        </tr>
                     )}
                 </For>
-            </ul>
+                </tbody>
+            </table>
         </Window>
     );
 };
