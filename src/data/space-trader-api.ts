@@ -14,7 +14,6 @@ const getSpaceTraders = (route: string | undefined, token: string | undefined) =
             Authorization: 'Bearer ' + token,
         },
     };
-    console.log('config', config);
     return axios.get(url, config);
 };
 
