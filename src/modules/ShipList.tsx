@@ -1,5 +1,6 @@
 import { getSpaceTraders } from '@/data/space-trader-api';
 import { useGlobalState } from '@/state/GlobalState';
+import LoadingSpinner from '@/ui-elements/LoadingSpinner';
 import Window from '@/ui-elements/Window';
 import { Component, For, createSignal } from 'solid-js';
 
@@ -31,9 +32,9 @@ const ShipList: Component = () => {
 
     return (
         <Window>
-            {loading() && <p>loading...</p>}
+            {loading() && <LoadingSpinner />}
             <h1>Ships:</h1>
-            <table>
+            <table class="table table-zebra">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -43,24 +44,16 @@ const ShipList: Component = () => {
                     </tr>
                 </thead>
                 <tbody>
-                <For each={ships()}>
-                    {(ship: any) => (
-                        <tr onClick={() => handleShipClick(ship)}>
-                            <td>
-                                {ship.symbol}
-                            </td>
-                            <td>
-                                {ship.registration.role}
-                            </td>
-                            <td>
-                                {ship.nav.systemSymbol}
-                            </td>
-                            <td>
-                                {ship.nav.waypointSymbol}
-                            </td>
-                        </tr>
-                    )}
-                </For>
+                    <For each={ships()}>
+                        {(ship: any) => (
+                            <tr onClick={() => handleShipClick(ship)}>
+                                <td>{ship.symbol}</td>
+                                <td>{ship.registration.role}</td>
+                                <td>{ship.nav.systemSymbol}</td>
+                                <td>{ship.nav.waypointSymbol}</td>
+                            </tr>
+                        )}
+                    </For>
                 </tbody>
             </table>
         </Window>

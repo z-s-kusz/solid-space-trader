@@ -6,8 +6,10 @@ import { Component } from 'solid-js';
 
 const Main: Component = () => {
     return (
-        <main>
-            <ServerStatus />
+        <main class="grid grid-cols-2">
+            <div class="col-span-2">
+                <ServerStatus />
+            </div>
 
             <ShipList />
             <StarMap />

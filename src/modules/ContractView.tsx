@@ -1,5 +1,6 @@
 import { getSpaceTraders } from '@/data/space-trader-api';
 import { useGlobalState } from '@/state/GlobalState';
+import LoadingSpinner from '@/ui-elements/LoadingSpinner';
 import Window from '@/ui-elements/Window';
 import { Component, For, createEffect, createSignal } from 'solid-js';
 
@@ -30,7 +31,7 @@ const ContractView: Component = () => {
 
     return (
         <Window>
-            {loading() && <div>loading...</div>}
+            {loading() && <LoadingSpinner />}
             <h1>Contracts:</h1>
             <table class="table table-zebra">
                 <thead>

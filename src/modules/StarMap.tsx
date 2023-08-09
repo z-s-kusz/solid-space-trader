@@ -4,13 +4,12 @@ import { getSpaceTraders } from '@/data/space-trader-api';
 import { useGlobalState } from '@/state/GlobalState';
 import mapWayPoints, { ASCIIMapPointType } from '@/utility/map-waypoints';
 import ASCIIMapPoint from '@/components/ASCIIMapPoint';
+import LoadingSpinner from '@/ui-elements/LoadingSpinner';
 
 const StarMap: Component = () => {
     const [loading, setLoading] = createSignal(false);
     const [system, setSystem] = createSignal<any>({});
-    const [ASCIIMapPoints, setASCIIMapPoints] = createSignal<
-        ASCIIMapPointType[]
-    >([]);
+    const [ASCIIMapPoints, setASCIIMapPoints] = createSignal<ASCIIMapPointType[]>([]);
     const { user, activeShip } = useGlobalState();
 
     createEffect(() => {
@@ -28,7 +27,7 @@ const StarMap: Component = () => {
     });
 
     const shipDisplay = () => {
-        return activeShip().symbol ? activeShip().symbol : 'None Selected';
+        return activeShip().symbol ? `${activeShip().symbol}'s Sector:` : 'Select Ship to View Map';
     };
 
     const getShipSystem = (systemSymbol: string) => {
@@ -49,8 +48,8 @@ const StarMap: Component = () => {
     return (
         <Window>
             <h1>Star Map:</h1>
-            <h1>Active Ship: {shipDisplay()}</h1>
-            {loading() && <div>loading...</div>}
+            <h1>{shipDisplay()}</h1>
+            {loading() && <LoadingSpinner />}
 
             <For each={ASCIIMapPoints()}>
                 {(point) => {

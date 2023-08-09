@@ -1,4 +1,5 @@
 import { getSTStatus } from '@/data/space-trader-api';
+import LoadingSpinner from '@/ui-elements/LoadingSpinner';
 import Window from '@/ui-elements/Window';
 import { createSignal } from 'solid-js';
 
@@ -26,15 +27,10 @@ const ServerStatus = () => {
 
     return (
         <Window>
-            {loading() ? (
-                <p>loading...</p>
-            ) : (
-                <>
-                    <h1>Status: {data().status}</h1>
-                    <h1>Next Reset: {nextReset()}</h1>
-                    <h1></h1>
-                </>
-            )}
+            <h1>Status:</h1>
+            {loading() && <LoadingSpinner />}
+            <h1>{data().status}</h1>
+            <h1>Next Reset {nextReset()}</h1>
         </Window>
     );
 };
