@@ -1,3 +1,4 @@
+import ContractView from '@/modules/ContractView';
 import ServerStatus from '@/modules/ServerStatus';
 import ShipList from '@/modules/ShipList';
 import StarMap from '@/modules/StarMap';
@@ -7,8 +8,11 @@ const Main: Component = () => {
     return (
         <main>
             <ServerStatus />
-            <StarMap />
+
             <ShipList />
+            <StarMap />
+
+            <ContractView />
         </main>
     );
 };
