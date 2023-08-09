@@ -29,6 +29,8 @@ export default function mapWayPoints(waypoints: WayPoint[]) {
         };
 
         if (i % 32 === 0) point.char = '\n';
+        else if (point.x === 16) point.char = '|';
+        else if (point.y === 4) point.char = '=';
         else point.char = '-';
 
         grid.push(point);

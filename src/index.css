@@ -5,3 +5,7 @@
 .ibm-mono {
     font-family: 'IBM Plex Mono', monospace;
 }
+
+.null-tooltip {
+    display: inline;
+}
