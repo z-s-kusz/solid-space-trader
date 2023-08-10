@@ -28,7 +28,7 @@ const ServerStatus = () => {
     return (
         <Window>
             <h1>Status:</h1>
-            {loading() && <LoadingSpinner />}
+            <LoadingSpinner show={loading()} />
             <h1>{data().status}</h1>
             <h1>Next Reset {nextReset()}</h1>
         </Window>

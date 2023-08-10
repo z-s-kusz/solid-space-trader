@@ -21,7 +21,6 @@ const StarMap: Component = () => {
     createEffect(() => {
         if (system().symbol) {
             const gridPoints = mapWayPoints(system().waypoints);
-            console.log(gridPoints);
             setASCIIMapPoints(gridPoints);
         }
     });
@@ -45,11 +44,13 @@ const StarMap: Component = () => {
             });
     };
 
+    setASCIIMapPoints(mapWayPoints([]));
+
     return (
         <Window>
             <h1>Star Map:</h1>
             <h1>{shipDisplay()}</h1>
-            {loading() && <LoadingSpinner />}
+            <LoadingSpinner show={loading()} />
 
             <For each={ASCIIMapPoints()}>
                 {(point) => {

@@ -13,7 +13,6 @@ const ShipList: Component = () => {
         setLoading(true);
         getSpaceTraders('my/ships', user().authToken)
             .then((response) => {
-                console.log('ships', response.data.data);
                 setShips(response.data.data);
             })
             .catch((error) => {
@@ -32,8 +31,8 @@ const ShipList: Component = () => {
 
     return (
         <Window>
-            {loading() && <LoadingSpinner />}
             <h1>Ships:</h1>
+            <LoadingSpinner show={loading()} />
             <table class="table table-zebra">
                 <thead>
                     <tr>

@@ -31,8 +31,8 @@ const ContractView: Component = () => {
 
     return (
         <Window>
-            {loading() && <LoadingSpinner />}
             <h1>Contracts:</h1>
+            <LoadingSpinner show={loading()} />
             <table class="table table-zebra">
                 <thead>
                     <tr>

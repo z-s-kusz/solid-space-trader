@@ -1,14 +1,6 @@
-## Usage
-
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
-
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
-
 ```bash
 $ npm install # or pnpm install or yarn install
 ```
-
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
 
 ## Available Scripts
 
@@ -32,3 +24,9 @@ Your app is ready to be deployed!
 ## Deployment
 
 You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+
+# Notes on solid
+
+Liking it a lot so far!
+Had some difficulty at first remembering that signals are functions and are accessed accordingly [ no: -myVar.prop- yes: myVar().prop ].
+The official Transition component can break hiding things during development before the css is set up.

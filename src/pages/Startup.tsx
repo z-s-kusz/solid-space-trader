@@ -2,6 +2,7 @@ import { Component, Show, createSignal } from 'solid-js';
 import { registerUser } from '@/data/space-trader-api';
 import { useGlobalState } from '@/state/GlobalState';
 import { storeUser } from '@/utility/local-storage';
+import LoadingSpinner from '@/ui-elements/LoadingSpinner';
 
 const Startup: Component = () => {
     const { user, setUser } = useGlobalState();
@@ -35,11 +36,11 @@ const Startup: Component = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} class="relative">
             <Show when={error()}>
                 <div class="error">{error()}</div>
             </Show>
-            {loading() && <div>loading...</div>}
+            <LoadingSpinner show={loading()} />
             <label for="username">
                 Username
                 <input

@@ -9,3 +9,16 @@
 .null-tooltip {
     display: inline;
 }
+
+.loading-enter-active,
+.loading-exit-active {
+  transition: opacity 300ms;
+}
+.loading-enter,
+.loading-exit-to {
+  opacity: 0;
+}
+/* TODO make the transition in delayed -- not working as is */
+.loading-enter {
+    transition-delay: 500ms;
+}
