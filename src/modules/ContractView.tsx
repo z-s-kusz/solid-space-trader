@@ -3,7 +3,7 @@ import { getSpaceTraders } from '@/data/space-trader-api';
 import { useGlobalState } from '@/state/GlobalState';
 import LoadingSpinner from '@/ui-elements/LoadingSpinner';
 import Window from '@/ui-elements/Window';
-import { Component, For, createEffect, createSignal } from 'solid-js';
+import { Component, Show, createSignal } from 'solid-js';
 
 const ContractView: Component = () => {
     const { user } = useGlobalState();
@@ -16,8 +16,11 @@ const ContractView: Component = () => {
 
         getSpaceTraders(url, user().authToken)
             .then((response) => {
-                console.log('response', response.data);
-                setContracts(response.data.data);
+                const data = response.data.data.map((contract: any) => {
+                    contract.showDetails = false;
+                    return contract;
+                });
+                setContracts(data);
             })
             .catch((error) => {
                 setContracts([]);
@@ -26,6 +29,16 @@ const ContractView: Component = () => {
             .finally(() => {
                 setLoading(false);
             });
+    };
+
+    const toggleDetails = (toggledContract: any) => {
+        const nextContracts = contracts().map((contract) => {
+            if (contract.id === toggledContract.id) {
+                contract.showDetails = !contract.showDetails;
+            }
+            return contract;
+        });
+        setContracts(nextContracts);
     };
 
     getContracts();
@@ -42,17 +55,29 @@ const ContractView: Component = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <For each={contracts()}>
-                        {(contract) => (
-                            <tr>
-                                <td>{contract.type}</td>
-                                <td>{contract.accepted ? 'Accepted' : 'Available'}</td>
-                                <td>
-                                    <ContractControls contract={contract} refetchContracts={getContracts} />
-                                </td>
-                            </tr>
-                        )}
-                    </For>
+                    {/* <For /> was unable to detect differences when I set contracts() with a BRAND NEW ARRAY
+                    was unable to set a key to tell it to differentiate, not sure why it never triggered rerendering */}
+                    {contracts().map((contract) => {
+                        console.log('contract rendering my way');
+                        return (
+                            <>
+                                <tr>
+                                    <td>{contract.type}</td>
+                                    <td>{contract.accepted ? 'Accepted' : 'Available'}</td>
+                                    <td>
+                                        <ContractControls
+                                            contract={contract}
+                                            refetchContracts={getContracts}
+                                            toggleDetails={toggleDetails}
+                                        />
+                                    </td>
+                                </tr>
+                                <Show when={contract.showDetails}>
+                                    <div>I'm contract details, which is a sub array and will get a new component!</div>
+                                </Show>
+                            </>
+                        );
+                    })}
                 </tbody>
             </table>
         </Window>
