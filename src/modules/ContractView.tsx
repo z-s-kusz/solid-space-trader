@@ -1,3 +1,4 @@
+import ContractControls from '@/components/ContractControls';
 import { getSpaceTraders } from '@/data/space-trader-api';
 import { useGlobalState } from '@/state/GlobalState';
 import LoadingSpinner from '@/ui-elements/LoadingSpinner';
@@ -46,6 +47,9 @@ const ContractView: Component = () => {
                             <tr>
                                 <td>{contract.type}</td>
                                 <td>{contract.accepted ? 'Accepted' : 'Available'}</td>
+                                <td>
+                                    <ContractControls contract={contract} refetchContracts={getContracts} />
+                                </td>
                             </tr>
                         )}
                     </For>
