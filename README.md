@@ -30,3 +30,5 @@ You can deploy the `dist` folder to any static host provider (netlify, surge, no
 Liking it a lot so far!
 Had some difficulty at first remembering that signals are functions and are accessed accordingly [ no: -myVar.prop- yes: myVar().prop ].
 The official Transition component can break hiding things during development before the css is set up.
+Had some issues with the official <For /> "control flow component" not re-rendering when
+the signal it was dependent on was set as a new array (achieved by mapping over the old array and setting the singla to be the new array).
